@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import Cards.CardPlayer;
-import Hangman.Hangman;
+import cards.CardPlayer;
+import hangman.Hangman;
 
 /**
  * The Menu of games.
