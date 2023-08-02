@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Cards.CardPlayer;
+import Hangman.Hangman;
 
 /**
  * The Menu of games.
