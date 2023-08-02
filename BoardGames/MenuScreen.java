@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import Cards.CardPlayer;
+
 /**
  * The Menu of games.
  * 
@@ -27,6 +29,10 @@ import javax.swing.JTextArea;
  */
 public class MenuScreen extends JFrame
         implements ActionListener, ComponentListener {
+    /**
+     * Default serialization.
+     */
+    private static final long serialVersionUID = 1L;
     private final int contHeight = 500;
     private final int contWidh = 500;
 
@@ -101,9 +107,9 @@ public class MenuScreen extends JFrame
         title.setBackground(transparent); // Makes title transparent
         title.setBorder(null);
 
-        JScrollPane scrollPane = new JScrollPane(title);
-        scrollPane.getViewport().setOpaque(false);
-        scrollPane.setOpaque(false);
+        // JScrollPane scrollPane = new JScrollPane(title);
+        // scrollPane.getViewport().setOpaque(false);
+        // scrollPane.setOpaque(false);
 
         c.insets = new Insets(15, 0, 0, 0);
         gridLayout.setConstraints(title, c);
@@ -128,7 +134,7 @@ public class MenuScreen extends JFrame
         buttonsFirstRow.setBackground(transparent);
 
         c.gridy = 3;
-        c.ipadx = 500;// max width of button?
+        c.ipadx = 500; // max width of button?
 
         c.insets = new Insets(0, 50, 0, 50); // top padding
 
@@ -200,7 +206,7 @@ public class MenuScreen extends JFrame
                 System.out.println("Hangman");
                 if (!hangBool) {
                     try {
-                        this.setVisible(false);
+                        this.setVisible(true);
                         Hangman h = new Hangman();
                     } catch (InterruptedException ie) {
                         ie.printStackTrace();

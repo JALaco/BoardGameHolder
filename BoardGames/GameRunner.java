@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
@@ -19,10 +18,10 @@ public class GameRunner implements Runnable {
      * The entry point of the application.
      * 
      * @param args The command line arguments (which are ignored)
-     * @throws UnsupportedLookAndFeelException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws ClassNotFoundException
+     * @throws UnsupportedLookAndFeelException ULAFE
+     * @throws IllegalAccessException IAE
+     * @throws InstantiationException IE
+     * @throws ClassNotFoundException CNFE
      */
     public static void main(final String[] args)
             throws InterruptedException, InvocationTargetException {
@@ -44,12 +43,12 @@ public class GameRunner implements Runnable {
     public void run() {
         setLookAndFeel();
         MenuScreen window = new MenuScreen();
-//        MenuScreen window = null;
-//        try {
-//            window = new MenuScreen();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // MenuScreen window = null;
+        // try {
+        // window = new MenuScreen();
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
         window.setVisible(true);
     }

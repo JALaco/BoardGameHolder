@@ -1,10 +1,21 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
@@ -16,15 +27,17 @@ import javax.swing.WindowConstants;
 public class Hangman {
 
     private static int lives;
-    private JFrame f;
-    private static JTextArea text;
+    protected JFrame frame;
+    protected static JTextArea text;
+    Container contentPane;
+    protected String phrase;
 
-    private final String clear = "\n\n\n\n\n\n\n\n\n"
+    protected final String clear = "\n\n\n\n\n\n\n\n\n"
             + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
-    private ArrayList<String> phraseArray = new ArrayList<>();
-    private ArrayList<String> hiddenPhrase = new ArrayList<>();
-    private String used = "";
+    protected ArrayList<String> phraseArray = new ArrayList<>();
+    protected ArrayList<String> hiddenPhrase = new ArrayList<>();
+    protected String used = "";
 
     /**
      * Sets up the game of hangman.
@@ -33,6 +46,7 @@ public class Hangman {
      */
     public Hangman() throws InterruptedException {
         setUpFrame();
+
         Scanner in = new Scanner(System.in);
         System.out.println(
                 "Welcome to the word guessing game, Hangman. \nTo start, enter "
@@ -134,7 +148,7 @@ public class Hangman {
             guessLetters();
         } else {
             System.out.println(
-                    clear + "You have ran out of lives!" + "\nYou lose.");
+                    clear + "You have run out of lives!" + "\nYou lose.");
             in.close();
             return;
         }
@@ -144,20 +158,72 @@ public class Hangman {
      * Sets up the frame for used letters.
      */
     private void setUpFrame() {
-        f = new JFrame();
-        f.setSize(300, 200);
-        f.setAlwaysOnTop(true);
-        f.setLocation(
+//        phrase = JOptionPane.showInputDialog(
+//                "Enter the phrase you want others to guess:");
+//        while (lives < 1) {
+//            String stringLives = JOptionPane.showInputDialog(
+//                    "Enter the number of lives you want the "
+//                            + "guesser to have (1, 2, 3, etc):");
+//            try {
+//                lives = Integer.parseInt(stringLives);
+//            } catch (NumberFormatException nfe) {
+//                System.out.println("Hi");
+//            }
+//        }
+
+        // -----------------------------------
+
+        frame = new JFrame();
+        frame.setSize(300, 200);
+        frame.setAlwaysOnTop(true);
+        frame.setLocation(
                 Toolkit.getDefaultToolkit().getScreenSize().width
-                        - (f.getWidth() + 50),
+                        - (frame.getWidth() + 50),
                 Toolkit.getDefaultToolkit().getScreenSize().height / 2
-                        - ((int) f.getHeight() / 2));
+                        - ((int) frame.getHeight() / 2));
         text = new JTextArea("Previously Guessed Letters: \n         ");
         text.setFont(new Font("Serif", Font.BOLD, 20));
-        f.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         text.setEditable(false);
-        f.add(text);
-        f.setVisible(true);
+        frame.add(text);
+        frame.setVisible(true);
+
+        // -----------------------------------------------------------
+
+//        JPanel p1, p2;
+//        frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(500, 500);
+//        frame.setMinimumSize(new Dimension(500, 0));
+//        contentPane = frame.getContentPane();
+//        contentPane.setSize(500, 200);
+//
+//        contentPane.setLayout(new GridLayout(3, 1));
+//
+//        p1 = new JPanel();
+//        p1.setMaximumSize(new Dimension(500, 200));
+//        p1.setLayout(new BorderLayout());
+//        p1.setBorder(BorderFactory.createTitledBorder(
+//                "Enter the phrase you want others to guess:"));
+//        p1.add(new JTextField(" "), BorderLayout.CENTER);
+//        contentPane.add(p1);
+//
+//        p2 = new JPanel();
+//        p2.setLayout(new BorderLayout());
+//        p2.setBorder(BorderFactory.createTitledBorder(
+//                "Enter the number of lives you want the guesser to have (1, 2, 3, etc)"));
+//        p2.add(new JTextField(" "), BorderLayout.CENTER);
+//        contentPane.add(p2);
+//
+//        JPanel p3 = new JPanel();
+//        p3.setLayout(new BorderLayout());
+//        JButton ok = new JButton("OK");
+//
+//        p3.add(ok);
+//        contentPane.add(p3);
+//
+//        frame.pack();
+//        frame.setVisible(true);
     }
 
     /**
@@ -180,7 +246,7 @@ public class Hangman {
      */
     private void closeGame() {
         System.out.println(clear + clear);
-        this.f.dispose();
+        this.frame.dispose();
     }
 
     /**
@@ -213,7 +279,7 @@ public class Hangman {
      */
     public static void main(String[] args) throws InterruptedException {
         Hangman h = new Hangman();
-        h.f.dispose();
+        h.frame.dispose();
     }
 
 }
