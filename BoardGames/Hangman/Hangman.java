@@ -1,4 +1,5 @@
 package Hangman;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -46,28 +47,47 @@ public class Hangman {
      * @throws InterruptedException thrown for sleeping
      */
     public Hangman() throws InterruptedException {
-        setUpFrame();
+        // setUpFrame();
 
-        Scanner in = new Scanner(System.in);
-        System.out.println(
-                "Welcome to the word guessing game, Hangman. \nTo start, enter "
-                        + "the phrase you want others to guess: ");
-        String phrase = in.nextLine().toUpperCase();
+        phrase = JOptionPane.showInputDialog(
+                "Enter the phrase you want others to guess:").toUpperCase();
+        System.out.println(phrase);
+        while (lives < 1) {
+            String stringLives = JOptionPane.showInputDialog(
+                    "Enter the number of lives you want the "
+                            + "guesser to have (1, 2, 3, etc):");
+            try {
+                lives = Integer.parseInt(stringLives);
+            } catch (NumberFormatException nfe) {
+                System.out.println("Hi");
+            }
+        }
         for (int i = 0; i < phrase.length(); i++) {
             phraseArray.add("" + phrase.charAt(i));
         }
-        System.out.println(
-                "Now, how lives many would you like the guesser to have?"
-                        + "(Use numerical values ex: 5, 3, 9.)");
-        String livesStr = in.nextLine();
-        try {
-            lives = Integer.parseInt(livesStr);
-            if (lives <= 0) {
-                getLives();
-            }
-        } catch (NumberFormatException nfe) {
-            getLives();
-        }
+
+        // -------------------------------------------------
+
+//        Scanner in = new Scanner(System.in);
+//        System.out.println(
+//                "Welcome to the word guessing game, Hangman. \nTo start, enter "
+//                        + "the phrase you want others to guess: ");
+//        String phrase = in.nextLine().toUpperCase();
+//        for (int i = 0; i < phrase.length(); i++) {
+//            phraseArray.add("" + phrase.charAt(i));
+//        }
+//        System.out.println(
+//                "Now, how lives many would you like the guesser to have?"
+//                        + "(Use numerical values ex: 5, 3, 9.)");
+//        String livesStr = in.nextLine();
+//        try {
+//            lives = Integer.parseInt(livesStr);
+//            if (lives <= 0) {
+//                getLives();
+//            }
+//        } catch (NumberFormatException nfe) {
+//            getLives();
+//        }
         System.out.println(clear);
         for (int i = 0; i < phraseArray.size(); i++) {
             if (phraseArray.get(i).equals(" ")) {
@@ -150,7 +170,7 @@ public class Hangman {
         } else {
             System.out.println(
                     clear + "You have run out of lives!" + "\nYou lose.");
-            in.close();
+            loseOptions();
             return;
         }
     }
@@ -159,21 +179,6 @@ public class Hangman {
      * Sets up the frame for used letters.
      */
     private void setUpFrame() {
-//        phrase = JOptionPane.showInputDialog(
-//                "Enter the phrase you want others to guess:");
-//        while (lives < 1) {
-//            String stringLives = JOptionPane.showInputDialog(
-//                    "Enter the number of lives you want the "
-//                            + "guesser to have (1, 2, 3, etc):");
-//            try {
-//                lives = Integer.parseInt(stringLives);
-//            } catch (NumberFormatException nfe) {
-//                System.out.println("Hi");
-//            }
-//        }
-
-        // -----------------------------------
-
         frame = new JFrame();
         frame.setSize(300, 200);
         frame.setAlwaysOnTop(true);
@@ -234,11 +239,11 @@ public class Hangman {
      */
     private void addLetter(final String letter) {
         if (!used.contains(letter)) {
-            Hangman.text.setText(text.getText() + letter + ", ");
+            // Hangman.text.setText(text.getText() + letter + ", ");
             used += letter;
         }
         if (used.length() == 8) {
-            this.text.setText(text.getText() + "\n         ");
+            // this.text.setText(text.getText() + "\n ");
         }
     }
 
@@ -247,7 +252,7 @@ public class Hangman {
      */
     private void closeGame() {
         System.out.println(clear + clear);
-        this.frame.dispose();
+//        this.frame.dispose();
     }
 
     /**
@@ -273,6 +278,29 @@ public class Hangman {
     }
 
     /**
+     * Options given when you win.
+     * 
+     * @param win the user input
+     * @throws InterruptedException hangman throw
+     */
+    private void loseOptions() throws InterruptedException {
+        System.out.println(
+                clear + "You lose.\n\nTo quit, type \"Quit\"\tOR\tTo "
+                        + "play again, type \"Restart\"");
+        Scanner in = new Scanner(System.in);
+        String lose = in.next();
+        if (lose.equalsIgnoreCase("Quit")) {
+            closeGame();
+        } else if (lose.equalsIgnoreCase("Restart")) {
+            closeGame();
+            Hangman h = new Hangman();
+        } else {
+            System.out.println(
+                    "\n\nYou did not enter a valid option, try again!");
+        }
+    }
+
+    /**
      * Runs the game.
      * 
      * @param args arguments from the command line
@@ -280,7 +308,7 @@ public class Hangman {
      */
     public static void main(String[] args) throws InterruptedException {
         Hangman h = new Hangman();
-        h.frame.dispose();
+//        h.frame.dispose();
     }
 
 }
