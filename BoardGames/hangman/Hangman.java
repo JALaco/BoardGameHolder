@@ -50,25 +50,24 @@ public class Hangman {
         // setUpFrame();
 
         while (phrase.length() < 1) {
-            phrase = JOptionPane.showInputDialog(
-                    "Type \"Quit\" to exit.\nEnter the phrase you want others to guess:").toUpperCase();
-            if (phrase.toLowerCase().equals("quit")) {
+            try {
+                phrase = JOptionPane.showInputDialog(
+                        "Enter the phrase you want others to guess:").toLowerCase();
+            } catch (NullPointerException npe) {
                 return;
             }
         }
         System.out.println(phrase);
         while (lives < 1) {
-            String stringLives = JOptionPane.showInputDialog(
-                    "Type \"Quit\" to exit.\nEnter the number of lives you want the "
-                            + "guesser to have (1, 2, 3, etc):");
+            String stringLives;
             try {
-                if (stringLives.toLowerCase().equals("quit")) {
-                    return;
-                }
-                lives = Integer.parseInt(stringLives);
-            } catch (NumberFormatException nfe) {
-                System.out.println("Hi");
+                stringLives = JOptionPane.showInputDialog(
+                        "Enter the number of lives you want the "
+                                + "guesser to have (1, 2, 3, etc):").toLowerCase();
+            } catch (NullPointerException npe) {
+                return;
             }
+            lives = Integer.parseInt(stringLives);
         }
         for (int i = 0; i < phrase.length(); i++) {
             phraseArray.add("" + phrase.charAt(i));
