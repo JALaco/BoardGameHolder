@@ -48,6 +48,7 @@ public class TicTacToe extends JFrame
     private TicTacToePlayer player2;
 
     private ArrayList<JButton> buttons = new ArrayList<>();
+    private boolean gameOver = false;
 
     private Container contentPane;
     private JPanel board = new JPanel();
@@ -70,6 +71,7 @@ public class TicTacToe extends JFrame
             return;
         }
         setUpLayout();
+        startTurns();
         // Feature: When single clicking a square, the x or o appears, but
         // doesn't make it permanent, can still switch spots if needed, only
         // when you click twice on a square, does it become permanent and
@@ -84,14 +86,16 @@ public class TicTacToe extends JFrame
     public int playerSetUp() {
         player1 = new TicTacToePlayer();
         player2 = new TicTacToePlayer();
+
+        // Character limit?
         while (player1.getName().length() < 1) {
             try {
                 player1 = new TicTacToePlayer(
                         JOptionPane.showInputDialog(
                                 "Enter Player One's name (X):").toUpperCase(),
-                        "x");
+                        "x", -1);
             } catch (NullPointerException npe) {
-                return 1;
+                return 0;
             }
         }
         while (player2.getName().length() < 1) {
@@ -99,7 +103,7 @@ public class TicTacToe extends JFrame
                 player2 = new TicTacToePlayer(
                         JOptionPane.showInputDialog(
                                 "Enter Player Two's name (O):").toUpperCase(),
-                        "o");
+                        "o", -1);
             } catch (NullPointerException npe) {
                 return 1;
             }
@@ -116,6 +120,7 @@ public class TicTacToe extends JFrame
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         // Centers the board
         this.setLocation(
@@ -124,10 +129,8 @@ public class TicTacToe extends JFrame
                 Toolkit.getDefaultToolkit().getScreenSize().height / 2
                         - (screenHeight / 2));
 
-        GridLayout gridLayout = new GridLayout(3, 3);
-        board.setLayout(gridLayout);
-        contentPane.setLayout(new BorderLayout());
-        contentPane.add(board, BorderLayout.CENTER);
+        board.setLayout(new GridLayout(3, 3));
+        addButtons();
 
         // Creating text field at the top
         JTextArea text = new JTextArea();
@@ -140,15 +143,28 @@ public class TicTacToe extends JFrame
         text.setText(" ");
 
         textPanel.add(text);
+
+        contentPane.add(board, BorderLayout.CENTER);
         contentPane.add(textPanel, BorderLayout.NORTH);
 
-        addButtons();
-        this.setSize(screenWidth + 1, screenHeight + 1);
-        // for (int i = 0; i < 9; i++) {
-        // buttons.get(i).setText(String.format("%d", i));
-        // }
+        preventBlank();
     }
 
+    public void startTurns() {
+        // TODO
+//        while (!gameOver) {
+//            if (player1.getTurns() < player2.getTurns()) {
+//                // TODO PLAYER 1's TURN
+//            } else {
+//                // TODO PLAYER 2's TURN
+//            }
+//        }
+        return;
+    }
+
+    /**
+     * Adds the buttons to the button array, board, and edits their effects.
+     */
     public void addButtons() {
         buttons.add(one);
         buttons.add(two);
@@ -169,6 +185,14 @@ public class TicTacToe extends JFrame
             b.setBackground(transparent);
             b.setContentAreaFilled(false);
         }
+    }
+
+    /**
+     * Prevents the frame from being blank.
+     */
+    public void preventBlank() {
+        this.setSize(screenWidth + 1, screenHeight + 1);
+        this.setSize(screenWidth - 1, screenHeight - 1);
     }
 
     @Override
