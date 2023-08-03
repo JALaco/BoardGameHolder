@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 
 import cards.CardPlayer;
 import hangman.Hangman;
+import tictactoe.TicTacToe;
 
 /**
  * The Menu of games.
@@ -194,12 +195,15 @@ public class MenuScreen extends JFrame
             case "Tic-Tac-Toe":
                 System.out.println("Tic-Tac-Toe");
                 if (!ticBool) {
+                    this.setVisible(true);
+                    TicTacToe ttt = new TicTacToe();
+
                     frame = new JFrame();
                     frame.setSize(100, 100);
                     frame.setVisible(true);
-                    JTextArea tic = new JTextArea("Tic-Tac-Toe");
-                    tic.setEditable(false);
-                    frame.add(tic);
+                    JTextArea hman = new JTextArea("Hangman");
+                    hman.setEditable(false);
+                    frame.add(hman);
                 }
                 ticBool = true;
                 break;

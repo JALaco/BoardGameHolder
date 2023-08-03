@@ -32,7 +32,7 @@ public class Hangman {
     protected JFrame frame;
     protected static JTextArea text;
     Container contentPane;
-    protected String phrase;
+    protected String phrase = "";
 
     protected final String clear = "\n\n\n\n\n\n\n\n\n"
             + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -49,14 +49,22 @@ public class Hangman {
     public Hangman() throws InterruptedException {
         // setUpFrame();
 
-        phrase = JOptionPane.showInputDialog(
-                "Enter the phrase you want others to guess:").toUpperCase();
+        while (phrase.length() < 1) {
+            phrase = JOptionPane.showInputDialog(
+                    "Type \"Quit\" to exit.\nEnter the phrase you want others to guess:").toUpperCase();
+            if (phrase.toLowerCase().equals("quit")) {
+                return;
+            }
+        }
         System.out.println(phrase);
         while (lives < 1) {
             String stringLives = JOptionPane.showInputDialog(
-                    "Enter the number of lives you want the "
+                    "Type \"Quit\" to exit.\nEnter the number of lives you want the "
                             + "guesser to have (1, 2, 3, etc):");
             try {
+                if (stringLives.toLowerCase().equals("quit")) {
+                    return;
+                }
                 lives = Integer.parseInt(stringLives);
             } catch (NumberFormatException nfe) {
                 System.out.println("Hi");
