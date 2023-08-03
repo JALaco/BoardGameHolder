@@ -1,5 +1,6 @@
 package tictactoe;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -17,6 +18,10 @@ import java.awt.event.ComponentListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import java.util.ArrayList;
 
@@ -34,6 +39,7 @@ public class TicTacToe extends JFrame
      */
     private static final long serialVersionUID = 1L;
     private final Color transparent = new Color(0, 0, 0, 0);
+    private final Color textPanelColor = new Color(56, 98, 200);
 
     private final int screenHeight = 500;
     private final int screenWidth = 500;
@@ -44,6 +50,8 @@ public class TicTacToe extends JFrame
     private ArrayList<JButton> buttons = new ArrayList<>();
 
     private Container contentPane;
+    private JPanel board = new JPanel();
+    private JPanel textPanel = new JPanel();
     private JButton one = new JButton(" ");
     private JButton two = new JButton("  ");
     private JButton three = new JButton("   ");
@@ -117,13 +125,28 @@ public class TicTacToe extends JFrame
                         - (screenHeight / 2));
 
         GridLayout gridLayout = new GridLayout(3, 3);
+        board.setLayout(gridLayout);
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(board, BorderLayout.CENTER);
 
-        contentPane.setLayout(gridLayout);
+        // Creating text field at the top
+        JTextArea text = new JTextArea();
+        textPanel.setBackground(textPanelColor);
+        Font font = new Font("Sans Serif", Font.PLAIN, 20);
+        text.setFont(font);
+        text.setForeground(Color.WHITE);
+        text.setEditable(false);
+        text.setBackground(transparent);
+        text.setText(" ");
+
+        textPanel.add(text);
+        contentPane.add(textPanel, BorderLayout.NORTH);
+
         addButtons();
-
-//        for (int i = 0; i < 9; i++) {
-//            buttons.get(i).setText(String.format("%d", i));
-//        }
+        this.setSize(screenWidth + 1, screenHeight + 1);
+        // for (int i = 0; i < 9; i++) {
+        // buttons.get(i).setText(String.format("%d", i));
+        // }
     }
 
     public void addButtons() {
@@ -139,7 +162,7 @@ public class TicTacToe extends JFrame
 
         for (JButton b : buttons) {
             b.addActionListener(this);
-            contentPane.add(b);
+            board.add(b);
 
             // Removes the initial highlight of the buttons
             b.setRolloverEnabled(false);
@@ -173,48 +196,50 @@ public class TicTacToe extends JFrame
         switch (str) {
             case " ":
                 System.out.println("one");
+
+                // Allows the clicked button to change colors
                 buttons.get(0).setContentAreaFilled(true);
                 buttons.get(0).setBackground(new Color(100, 100, 100));
                 break;
             case "  ":
                 System.out.println("two");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(1).setContentAreaFilled(true);
+                buttons.get(1).setBackground(new Color(100, 100, 100));
                 break;
             case "   ":
                 System.out.println("three");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(2).setContentAreaFilled(true);
+                buttons.get(2).setBackground(new Color(100, 100, 100));
                 break;
             case "    ":
                 System.out.println("four");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(3).setContentAreaFilled(true);
+                buttons.get(3).setBackground(new Color(100, 100, 100));
                 break;
             case "     ":
                 System.out.println("five");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(4).setContentAreaFilled(true);
+                buttons.get(4).setBackground(new Color(100, 100, 100));
                 break;
             case "      ":
                 System.out.println("six");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(5).setContentAreaFilled(true);
+                buttons.get(5).setBackground(new Color(100, 100, 100));
                 break;
             case "       ":
                 System.out.println("seven");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(6).setContentAreaFilled(true);
+                buttons.get(6).setBackground(new Color(100, 100, 100));
                 break;
             case "        ":
                 System.out.println("eight");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(7).setContentAreaFilled(true);
+                buttons.get(7).setBackground(new Color(100, 100, 100));
                 break;
             case "         ":
                 System.out.println("nine");
-                buttons.get(0).setContentAreaFilled(true);
-                buttons.get(0).setBackground(new Color(100, 100, 100));
+                buttons.get(8).setContentAreaFilled(true);
+                buttons.get(8).setBackground(new Color(100, 100, 100));
                 break;
             default:
                 break;
