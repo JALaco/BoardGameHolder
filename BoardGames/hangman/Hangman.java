@@ -72,6 +72,8 @@ public class Hangman {
         for (int i = 0; i < phrase.length(); i++) {
             phraseArray.add("" + phrase.charAt(i));
         }
+        // IF IT IS EVER SAYING THAT A CERTAIN LETTER IS NOT IN THE PHRASE
+        // WHEN IT IS, CHECK .toUpperCase or .toLowerCase use in the class
 
         // -------------------------------------------------
 
@@ -144,7 +146,7 @@ public class Hangman {
     public void guessLetters() throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("Guess a letter: ");
-        String letter = in.nextLine().toUpperCase();
+        String letter = in.nextLine().toLowerCase();
         if (letter.length() != 1) {
             System.out.println(clear
                     + "<< You entered too many characters. Try again. >>\n");

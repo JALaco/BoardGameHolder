@@ -3,34 +3,26 @@ package tictactoe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
 
 import java.util.ArrayList;
 
 /**
  * TicTacToe Class.
  * 
- * @author Justin
+ * @author Justin Lacombe
  * @version 8/2/2023
  */
 public class TicTacToe extends JFrame
@@ -79,10 +71,10 @@ public class TicTacToe extends JFrame
         if (playerSetUp() == 1) {
             return;
         }
-        System.out.println(player1.getName());
-        System.out.println(player2.getName());
+
         setUpLayout();
         startTurns();
+
         // Feature: When single clicking a square, the x or o appears, but
         // doesn't make it permanent, can still switch spots if needed, only
         // when you click twice on a square, does it become permanent and
@@ -104,7 +96,10 @@ public class TicTacToe extends JFrame
                 player1 = new TicTacToePlayer(JOptionPane.showInputDialog(
                         "Enter Player One's name (X):"), "X", true);
             } catch (NullPointerException npe) {
-                return 0;
+                return 1;
+            }
+            if (player1.getName() == null) {
+                return 1;
             }
         }
         while (player2.getName().length() < 1) {
@@ -112,6 +107,9 @@ public class TicTacToe extends JFrame
                 player2 = new TicTacToePlayer(JOptionPane.showInputDialog(
                         "Enter Player Two's name (O):"), "O", false);
             } catch (NullPointerException npe) {
+                return 1;
+            }
+            if (player2.getName() == null) {
                 return 1;
             }
         }
@@ -143,11 +141,13 @@ public class TicTacToe extends JFrame
         textPanel.setBackground(textPanelColor);
         Font textFont = new Font("Sans Serif", Font.PLAIN, 20);
         text.setFont(textFont);
-        text.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         text.setForeground(Color.WHITE);
         text.setEditable(false);
-        text.setBackground(textPanelColor);
         text.setText("");
+
+        // Blends text panel and text field colors
+        text.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        text.setBackground(textPanelColor);
 
         textPanel.add(text);
 
@@ -157,28 +157,101 @@ public class TicTacToe extends JFrame
         preventBlank();
     }
 
+    /**
+     * Starts the taking of turns between players.
+     */
     public void startTurns() {
-        if (player1.getTurn()) {
-            currentPlayer = player1;
-            // TODO PLAYER 1's TURN
-        } else {
-            currentPlayer = player2;
-            // TODO PLAYER 2's TURN
+        if (!gameOver) {
+            if (player1.getTurn()) {
+                currentPlayer = player1;
+            } else {
+                currentPlayer = player2;
+            }
+            player1.setTurn(!player1.getTurn());
+            player2.setTurn(!player2.getTurn());
+            text.setText(String.format("It is %s's turn. (%s)",
+                    currentPlayer.getName(), currentPlayer.getLetter()));
         }
-        player1.setTurn(!player1.getTurn());
-        player2.setTurn(!player2.getTurn());
-        text.setText(
-                String.format("It is %s's turn.", currentPlayer.getName()));
-
         return;
     }
 
+    /**
+     * Checks if a player has won the game.
+     */
     public void checkIfWin() {
         // need at least 5 turns for there to be a possible win
         if (totalTurns > 4) {
             // Check all 8 possible ways to win
+            String winningString = "";
+            for (int i = 0; i < 3; i++) {
+                winningString += currentPlayer.getLetter();
+            }
+            if (winningString.equals(buttons.get(0).getText()
+                    + buttons.get(1).getText() + buttons.get(2).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(3).getText()
+                    + buttons.get(4).getText() + buttons.get(5).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(6).getText()
+                    + buttons.get(7).getText() + buttons.get(8).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(0).getText()
+                    + buttons.get(3).getText() + buttons.get(6).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(1).getText()
+                    + buttons.get(4).getText() + buttons.get(7).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(2).getText()
+                    + buttons.get(5).getText() + buttons.get(8).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(0).getText()
+                    + buttons.get(4).getText() + buttons.get(8).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            } else if (winningString.equals(buttons.get(2).getText()
+                    + buttons.get(4).getText() + buttons.get(6).getText())) {
+                text.setText(currentPlayer.getName() + " has won the game!");
+                gameOver = true;
+            }
+        }
+        if (totalTurns >= 9) {
+            text.setText("It is a tie! No one won!");
+            gameOver = true;
+        }
+        if (gameOver) {
+            endGame();
+        }
+    }
 
-            // if win, set gameOver to true
+    /**
+     * Give the player(s) options after the game is over.
+     */
+    public void endGame() {
+        for (JButton b : buttons) {
+            b.setEnabled(false);
+        }
+        String choice = "";
+        while (choice.length() < 1) {
+            choice = JOptionPane.showInputDialog("To Quit, type \"Quit\"."
+                    + "\nTo Restart, type \"Restart\"");
+            if (choice == null) {
+                this.dispose();
+                return;
+            }
+        }
+        if (choice.toUpperCase().equals("QUIT")
+                || choice.toUpperCase().equals("Q")) {
+            this.dispose();
+        } else if (choice.toUpperCase().equals("RESTART")
+                || choice.toUpperCase().equals("R")) {
+            this.dispose();
+            new TicTacToe();
         }
     }
 
@@ -239,7 +312,7 @@ public class TicTacToe extends JFrame
         // which player's turn it is
         switch (str) {
             case " ":
-                System.out.println("one");
+//                System.out.println("one");
 
                 // Allows the clicked button to place the players letter
                 // buttons.get(0).setContentAreaFilled(true);
@@ -249,49 +322,49 @@ public class TicTacToe extends JFrame
                 setButton(buttons.get(0));
                 break;
             case "  ":
-                System.out.println("two");
+//                System.out.println("two");
                 // buttons.get(1).setContentAreaFilled(true);
                 // buttons.get(1).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(1));
                 break;
             case "   ":
-                System.out.println("three");
+//                System.out.println("three");
                 // buttons.get(2).setContentAreaFilled(true);
                 // buttons.get(2).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(2));
                 break;
             case "    ":
-                System.out.println("four");
+//                System.out.println("four");
                 // buttons.get(3).setContentAreaFilled(true);
                 // buttons.get(3).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(3));
                 break;
             case "     ":
-                System.out.println("five");
+//                System.out.println("five");
                 // buttons.get(4).setContentAreaFilled(true);
                 // buttons.get(4).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(4));
                 break;
             case "      ":
-                System.out.println("six");
+//                System.out.println("six");
                 // buttons.get(5).setContentAreaFilled(true);
                 // buttons.get(5).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(5));
                 break;
             case "       ":
-                System.out.println("seven");
+//                System.out.println("seven");
                 // buttons.get(6).setContentAreaFilled(true);
                 // buttons.get(6).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(6));
                 break;
             case "        ":
-                System.out.println("eight");
+//                System.out.println("eight");
                 // buttons.get(7).setContentAreaFilled(true);
                 // buttons.get(7).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(7));
                 break;
             case "         ":
-                System.out.println("nine");
+//                System.out.println("nine");
                 // buttons.get(8).setContentAreaFilled(true);
                 // buttons.get(8).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(8));
@@ -299,6 +372,8 @@ public class TicTacToe extends JFrame
             default:
                 break;
         }
+        totalTurns++;
+        checkIfWin();
         if (currentPlayer.equals(player1)) {
             currentPlayer = player2;
         } else {
@@ -317,6 +392,10 @@ public class TicTacToe extends JFrame
         b.setFont(buttonFont);
         b.setText(currentPlayer.getLetter());
         b.setContentAreaFilled(false);
+
+        // Easy fix to prevent double clicking and switching turns, but doesnt
+        // look as nice on screen
+        b.setEnabled(false);
     }
 
     /**
