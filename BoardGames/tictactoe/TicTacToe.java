@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.random.*;
 
 /**
  * TicTacToe Class.
@@ -173,7 +175,28 @@ public class TicTacToe extends JFrame
             text.setText(String.format("It is %s's turn. (%s)",
                     currentPlayer.getName(), currentPlayer.getLetter()));
         }
-        return;
+
+        // int currentTurns = totalTurns;
+        // if (currentPlayer.getName().equalsIgnoreCase("ai")) {
+        // while (currentTurns >= totalTurns) {
+        // Random m = new Random();
+        // int randNum = m.nextInt(0, 8);
+        // if (!buttons.get(randNum).getText().equalsIgnoreCase("X")
+        // && !buttons.get(randNum).getText().equalsIgnoreCase(
+        // "O")) {
+        // buttons.get(randNum).setText(currentPlayer.getLetter());
+        // setButton(buttons.get(randNum));
+        // totalTurns++;
+        // }
+        // checkIfWin();
+        // if (player1.getName().equalsIgnoreCase("ai")) {
+        // currentPlayer = player2;
+        // } else {
+        // currentPlayer = player1;
+        // }
+        // }
+        // startTurns();
+        // }
     }
 
     /**
@@ -312,65 +335,33 @@ public class TicTacToe extends JFrame
     @Override
     public void actionPerformed(ActionEvent e) {
         String str = e.getActionCommand();
-        // Will need to make the placement of COLOR, a variable depending on
-        // which player's turn it is
+
         switch (str) {
             case " ":
-//                System.out.println("one");
-
-                // Allows the clicked button to place the players letter
-                // buttons.get(0).setContentAreaFilled(true);
-                // buttons.get(0).setFont(font);
-                // buttons.get(0).setText(currentPlayer.getLetter());
-                // buttons.get(0).setContentAreaFilled(false);
                 setButton(buttons.get(0));
                 break;
             case "  ":
-//                System.out.println("two");
-                // buttons.get(1).setContentAreaFilled(true);
-                // buttons.get(1).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(1));
                 break;
             case "   ":
-//                System.out.println("three");
-                // buttons.get(2).setContentAreaFilled(true);
-                // buttons.get(2).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(2));
                 break;
             case "    ":
-//                System.out.println("four");
-                // buttons.get(3).setContentAreaFilled(true);
-                // buttons.get(3).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(3));
                 break;
             case "     ":
-//                System.out.println("five");
-                // buttons.get(4).setContentAreaFilled(true);
-                // buttons.get(4).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(4));
                 break;
             case "      ":
-//                System.out.println("six");
-                // buttons.get(5).setContentAreaFilled(true);
-                // buttons.get(5).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(5));
                 break;
             case "       ":
-//                System.out.println("seven");
-                // buttons.get(6).setContentAreaFilled(true);
-                // buttons.get(6).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(6));
                 break;
             case "        ":
-//                System.out.println("eight");
-                // buttons.get(7).setContentAreaFilled(true);
-                // buttons.get(7).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(7));
                 break;
             case "         ":
-//                System.out.println("nine");
-                // buttons.get(8).setContentAreaFilled(true);
-                // buttons.get(8).setBackground(new Color(100, 100, 100));
                 setButton(buttons.get(8));
                 break;
             default:
