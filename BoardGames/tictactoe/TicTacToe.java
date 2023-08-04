@@ -47,6 +47,7 @@ public class TicTacToe extends JFrame
 
     private ArrayList<JButton> buttons = new ArrayList<>();
     private boolean gameOver = false;
+    private boolean win = false;
     private int totalTurns = 0;
 
     private Container contentPane;
@@ -186,40 +187,43 @@ public class TicTacToe extends JFrame
             for (int i = 0; i < 3; i++) {
                 winningString += currentPlayer.getLetter();
             }
+
+            // How can I simplify? Make each win a str variable and then
+            // make this a switch case?
             if (winningString.equals(buttons.get(0).getText()
                     + buttons.get(1).getText() + buttons.get(2).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(3).getText()
                     + buttons.get(4).getText() + buttons.get(5).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(6).getText()
                     + buttons.get(7).getText() + buttons.get(8).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(0).getText()
                     + buttons.get(3).getText() + buttons.get(6).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(1).getText()
                     + buttons.get(4).getText() + buttons.get(7).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(2).getText()
                     + buttons.get(5).getText() + buttons.get(8).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(0).getText()
                     + buttons.get(4).getText() + buttons.get(8).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             } else if (winningString.equals(buttons.get(2).getText()
                     + buttons.get(4).getText() + buttons.get(6).getText())) {
-                text.setText(currentPlayer.getName() + " has won the game!");
-                gameOver = true;
+                win = true;
             }
         }
+
+        if (win) {
+            Font textFont = new Font("Sans Serif", Font.BOLD, 30);
+            text.setFont(textFont);
+            text.setText(currentPlayer.getName() + " has won the game!");
+            gameOver = true;
+        }
+
         if (totalTurns >= 9) {
             text.setText("It is a tie! No one won!");
             gameOver = true;

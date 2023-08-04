@@ -178,15 +178,15 @@ public class MenuScreen extends JFrame
         switch (str) {
             case "War":
                 System.out.println("War");
-                if (!warBool) {
-                    try {
-                        this.setVisible(false);
-                        new CardPlayer();
-                    } catch (CloneNotSupportedException
-                            | InterruptedException cnse) {
-                        cnse.printStackTrace();
-                    }
-                }
+                // if (!warBool) {
+                // try {
+                // this.setVisible(false);
+                // new CardPlayer();
+                // } catch (CloneNotSupportedException
+                // | InterruptedException cnse) {
+                // cnse.printStackTrace();
+                // }
+                // }
                 warBool = true;
                 // TODO Need to add display for the card game and have the text
                 // appear on that display. Maybe just make a container with a
@@ -195,8 +195,8 @@ public class MenuScreen extends JFrame
             case "Tic-Tac-Toe":
                 System.out.println("Tic-Tac-Toe");
                 if (!ticBool) {
-                    this.setVisible(true);
-                    TicTacToe ttt = new TicTacToe();
+                    // this.setVisible(true);
+                    // TicTacToe ttt = new TicTacToe();
 
                     frame = new JFrame();
                     frame.setSize(100, 100);
@@ -210,12 +210,12 @@ public class MenuScreen extends JFrame
             case "Hangman":
                 System.out.println("Hangman");
                 if (!hangBool) {
-                    try {
-                        this.setVisible(true);
-                        Hangman h = new Hangman();
-                    } catch (InterruptedException ie) {
-                        ie.printStackTrace();
-                    }
+                    // try {
+                    // this.setVisible(true);
+                    // Hangman h = new Hangman();
+                    // } catch (InterruptedException ie) {
+                    // ie.printStackTrace();
+                    // }
 
                     frame = new JFrame();
                     frame.setSize(100, 100);
