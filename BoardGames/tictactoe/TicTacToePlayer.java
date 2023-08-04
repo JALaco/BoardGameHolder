@@ -10,7 +10,7 @@ public class TicTacToePlayer {
 
     private String name;
     private String letter;
-    private int turns;
+    private boolean turn;
 
     /**
      * Default constructor.
@@ -24,18 +24,28 @@ public class TicTacToePlayer {
      * Constructor.
      * 
      * @param name the name of the player
+     * @param letter x or o
+     * @param turn whether or not it is this player's turn
      */
-    public TicTacToePlayer(String name, String letter, int turns) {
+    public TicTacToePlayer(String name, String letter, boolean turn) {
         this.name = name;
         this.letter = letter;
-        this.turns = turns;
+        this.turn = turn;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public int getTurns() {
-        return this.turns;
+    public String getLetter() {
+        return this.letter;
+    }
+
+    public boolean getTurn() {
+        return this.turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 }
