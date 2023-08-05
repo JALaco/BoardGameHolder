@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,13 +18,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.random.*;
 
 /**
  * TicTacToe Class.
@@ -79,6 +75,16 @@ public class MemoryGame extends JFrame
 //            return;
 //        }
         setUpLayout();
+
+        text.setText("Level 1");
+
+        JOptionPane.showMessageDialog(contentPane, "Ready?");
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         startTurns();
 
         // Feature: When single clicking a square, the x or o appears, but
@@ -145,7 +151,7 @@ public class MemoryGame extends JFrame
         text.setFont(textFont);
         text.setForeground(Color.WHITE);
         text.setEditable(false);
-        text.setText("");
+        text.setText(" ");
 
         // Blends text panel and text field colors
         text.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -175,6 +181,9 @@ public class MemoryGame extends JFrame
         for (int i = 0; i < order.size(); i++) {
             int currentOrderNum = order.get(i);
             try {
+                if (i == 0) {
+                    Thread.sleep(200);
+                }
                 Thread.sleep(300);
 
                 buttons.get(currentOrderNum).setFocusPainted(true);
@@ -187,9 +196,7 @@ public class MemoryGame extends JFrame
                 buttons.get(currentOrderNum).setFocusPainted(false);
                 buttons.get(currentOrderNum).setContentAreaFilled(false);
 
-                Thread.sleep(300);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -198,20 +205,17 @@ public class MemoryGame extends JFrame
         }
 
         // Allows for the waiting of a button push and the next level to begin
-        while (change == false) {
+        while (change == false && this.isEnabled()) {
+            if (!this.isDisplayable()) {
+                // If window has been closed, stop the program
+                System.exit(0);
+            }
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
             }
         }
         startTurns();
-    }
-
-    public void checkIfWin() {
-        // need at least 5 turns for there to be a possible win
-        if (totalTurns > 4) {
-            // Check all 8 possible ways to win
-        }
     }
 
     /**
@@ -234,7 +238,8 @@ public class MemoryGame extends JFrame
 
             // Removes the initial highlight of the buttons
             b.setFocusPainted(false);
-            // b.setRolloverEnabled(false); // removing makes more intuitive
+            b.setRolloverEnabled(true); // removing makes more intuitive
+            // b.setRolloverSelectedIcon(new Icon);
             b.setBackground(transparent);
             b.setContentAreaFilled(false);
         }
@@ -315,22 +320,37 @@ public class MemoryGame extends JFrame
             default:
                 break;
         }
+        for (int i = 0; i < playerOrder.size(); i++) {
+            if (order.get(i) != playerOrder.get(i)) {
+                text.setText("Lose.");
+                for (JButton b : buttons) {
+                    b.setEnabled(false);
+                }
+                change = false;
+            }
+        }
         if (playerOrder.size() == order.size() && playerOrder.equals(order)) {
             System.out.println("SAME!");
             level++;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            if (level >= 100) {
+                text.setText("You reached the max level! You win!");
+                change = false;
             }
 
             // Stops the while loop in startTurns() and allows for the next call
             // of it to begin
             change = true;
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+
         } else if (playerOrder.size() == order.size()
                 && !playerOrder.equals(order)) {
-            System.out.println("YOU LOSE");
+
+            text.setText("Lose.");
             for (JButton b : buttons) {
                 b.setEnabled(false);
             }
