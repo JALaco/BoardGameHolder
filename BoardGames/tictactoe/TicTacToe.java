@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.random.*;
+//import java.util.Random;
+//import java.util.random.*;
 
 /**
  * TicTacToe Class.
@@ -180,7 +180,7 @@ public class TicTacToe extends JFrame
         // if (currentPlayer.getName().equalsIgnoreCase("ai")) {
         // while (currentTurns >= totalTurns) {
         // Random m = new Random();
-        // int randNum = m.nextInt(0, 8);
+        // int randNum = m.nextInt(0, 9);
         // if (!buttons.get(randNum).getText().equalsIgnoreCase("X")
         // && !buttons.get(randNum).getText().equalsIgnoreCase(
         // "O")) {
@@ -277,6 +277,8 @@ public class TicTacToe extends JFrame
             this.dispose();
         } else if (choice.toUpperCase().equals("RESTART")
                 || choice.toUpperCase().equals("R")) {
+            // TODO Open button dialog box that asks if you want to restart with
+            // the same players
             this.dispose();
             new TicTacToe();
         }

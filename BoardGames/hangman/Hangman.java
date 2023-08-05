@@ -28,7 +28,7 @@ import javax.swing.WindowConstants;
  */
 public class Hangman {
 
-    private static int lives;
+    private int lives;
     protected JFrame frame;
     protected static JTextArea text;
     Container contentPane;
@@ -113,7 +113,7 @@ public class Hangman {
     /**
      * Checks for a correct number of lives.
      */
-    public static void getLives() {
+    public void getLives() {
         Scanner in = new Scanner(System.in);
         System.out.println("Try again. Enter a correctly formatted number"
                 + " (Use numerical values above zero. ex: 5, 3, 9.)");
@@ -149,8 +149,8 @@ public class Hangman {
         String letter = in.nextLine().toLowerCase();
         if (letter.length() != 1) {
             System.out.println(clear
-                    + "<< You entered too many characters. Try again. >>\n");
-            System.out.println("Lives Remainnig: " + lives + "\n");
+                    + "<< Please only enter one character. Try again. >>\n");
+            System.out.println("Lives Remaining: " + lives + "\n");
             printArray(hiddenPhrase);
             guessLetters();
         }
@@ -161,13 +161,13 @@ public class Hangman {
                     System.out.println(clear);
                 }
             }
-            System.out.println("Lives Remainnig: " + lives + "\n");
+            System.out.println("Lives Remaining: " + lives + "\n");
         } else { // GUESSED WRONG
             lives--;
             System.out.println(clear + "Sorry, there were no " + letter + "'s");
             addLetter(letter);
             Thread.sleep(1000);
-            System.out.println(clear + "Lives Remainnig: " + lives + "\n");
+            System.out.println(clear + "Lives Remaining: " + lives + "\n");
         }
         if (lives != 0) {
             if (!hiddenPhrase.contains("_")) {
@@ -291,9 +291,9 @@ public class Hangman {
      * @throws InterruptedException hangman throw
      */
     private void loseOptions() throws InterruptedException {
-        System.out.println(
-                clear + "You lose.\n\nTo quit, type \"Quit\"\tOR\tTo "
-                        + "play again, type \"Restart\"");
+        System.out.println(clear + "You lose.\nThe Phrase was: " + phrase
+                + "\nTo quit, type \"Quit\"\tOR\tTo "
+                + "play again, type \"Restart\"");
         Scanner in = new Scanner(System.in);
         String lose = in.next();
         if (lose.equalsIgnoreCase("Quit")) {
