@@ -1,4 +1,5 @@
 package cards;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,11 +51,11 @@ public class CardPlayer {
     }
 
     /**
-     * Default constructor of a CardPlayer
+     * Default constructor of a CardPlayer.
      * 
      * @param name the name of the player
-     * @throws CloneNotSupportedException
-     * @throws InterruptedException
+     * @throws CloneNotSupportedException clone exception
+     * @throws InterruptedException interrupt exception
      */
     public CardPlayer(String name) {
         // add turn parameter? and +1 or -1 in CardGameWar after each turn

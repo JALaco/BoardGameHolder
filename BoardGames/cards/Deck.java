@@ -1,4 +1,5 @@
 package cards;
+
 import java.util.ArrayList;
 
 /**
@@ -13,15 +14,13 @@ public class Deck {
     private ArrayList<Card> cards;
 
     /**
-     * Constructs a deck object
+     * Constructs a deck object.
      */
     public Deck() {
-        int num = 0;
         this.cards = new ArrayList<Card>();
         for (int i = 1; i < Card.RANKS.length; i++) {
             for (int j = 0; j < Card.SUITS.length; j++) {
                 this.cards.add(new Card(i, j));
-                num++;
             }
         }
         this.size = cards.size();
