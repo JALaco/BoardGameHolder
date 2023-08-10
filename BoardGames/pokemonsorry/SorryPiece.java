@@ -50,7 +50,7 @@ public class SorryPiece {
      * 
      * @param moveSpaces the number of spaces to move
      */
-    public void setLocation(int moveSpaces) {
+    public void move(int moveSpaces) {
         this.location += moveSpaces;
     }
 

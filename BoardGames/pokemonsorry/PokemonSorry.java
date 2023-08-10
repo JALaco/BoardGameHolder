@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cards.Card;
+import cards.Deck;
 
 /**
  * Attempt at replicating the board game Pokemon 'Sorry'.
@@ -20,27 +21,19 @@ public class PokemonSorry {
     HashMap<String, SorryPiece> pieces = new HashMap<>();
 
     protected PokemonPlayer[] players = new PokemonPlayer[4];
+    protected PokemonSorryCard currCard;
     protected ArrayList<PokemonSorryCard> cards = new ArrayList<PokemonSorryCard>();
-    protected int deckSize;
+    protected boolean gameOver = false;
 
     /**
      * Default Constructor. Creates deck and players and pieces
      */
     public PokemonSorry() {
-
-        this.cards = new ArrayList<PokemonSorryCard>();
-        for (int i = 0; i < PokemonSorryCard.RANKS.length; i++) {
-            if (i == 3 || i == 5 || i == 8 || i == 10) {
-                for (int j = 1; j < PokemonSorryCard.SUITS.length; j++) {
-                    this.cards.add(new PokemonSorryCard(i, j));
-                }
-            } else {
-                for (int k = 1; k < PokemonSorryCard.SUITS.length; k++) {
-                    this.cards.add(new PokemonSorryCard(i, 0));
-                }
-            }
+        try {
+            createShuffledDeck();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
-        this.deckSize = cards.size();
 
         addPieces();
 
@@ -48,6 +41,44 @@ public class PokemonSorry {
         // players[1] = new PokemonPlayer("Water", "Name2", bluePieces);
         // players[2] = new PokemonPlayer("Grass", "Name3", greenPieces);
         // players[3] = new PokemonPlayer("Electric", "Name4", yellowPieces);
+
+        int i = 0;
+        while (!gameOver) {
+            takeTurn(i);
+            i = (1 + i) % 4;
+        }
+    }
+
+    public void takeTurn(int playerNum) {
+        PokemonPlayer currPlayer = players[playerNum];
+
+        // Player draws a card (Use button popup?) ---
+
+        // Player then chooses through a button pop up screen, which
+        // of their pieces to move. OR Ask how they want to move BEFORE choosing
+        // piece:
+
+        // - If Sorry, ask which other player to switch with
+        // - If 2, draw again
+        // - If 3, check if type matches and ask if they want to move normal or
+        // move the pokemon into their gym
+        // - If 4, move backwards 4
+        // - If 5, check if type matches and ask if they want to move normal or
+        // move 5 and draw again
+        // - If 7, ask how many spaces they want to move (dropdown)
+        // - If 8, check if type matches and ask if they want to move normal or
+        // move to any color pokeball
+        // - If 10, ask if they want to move normal or backwards 1
+        // - If 11, ask if they want to move normal or change places with an
+        // opponent
+        // - If 12, check if type matches and ask if they want to move normal or
+        // move 24 spaces
+
+        // Once the piece is moved, change all of the necessary info and return;
+
+        // TODO
+
+        players[playerNum] = currPlayer;
     }
 
     /**
@@ -94,6 +125,32 @@ public class PokemonSorry {
         // yellowPieces[1] = new SorryPiece("Raichu", "Electric", 0, true);
         // yellowPieces[2] = new SorryPiece("Pikachu", "Electric", 0, true);
         // yellowPieces[3] = new SorryPiece("Electabuzz", "Electric", 0, true);
+    }
+
+    public void createShuffledDeck() throws CloneNotSupportedException {
+        // Creates organized deck of cards
+        ArrayList<PokemonSorryCard> shuffleCards = new ArrayList<PokemonSorryCard>();
+        for (int i = 0; i < PokemonSorryCard.RANKS.length; i++) {
+            if (i == 3 || i == 5 || i == 8 || i == 10) {
+                for (int j = 1; j < PokemonSorryCard.SUITS.length; j++) {
+                    shuffleCards.add(new PokemonSorryCard(i, j));
+                }
+            } else {
+                for (int k = 1; k < PokemonSorryCard.SUITS.length; k++) {
+                    shuffleCards.add(new PokemonSorryCard(i, 0));
+                }
+            }
+        }
+
+        // Shuffles the organized deck and puts it into this.cards
+        this.cards.clear();
+
+        int place = 0;
+        while (shuffleCards.size() > 0) {
+            place = (int) (100 * Math.random()) % shuffleCards.size();
+            this.cards.add(shuffleCards.get(place));
+            shuffleCards.remove(place);
+        }
     }
 
 }

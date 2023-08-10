@@ -1,5 +1,7 @@
 package pokemonsorry;
 
+import java.util.HashMap;
+
 /**
  * Player of Pokemon Sorry.
  * 
@@ -11,9 +13,17 @@ public class PokemonPlayer {
 
     private String team;
     private String playerName;
-    private SorryPiece[] pieces;
+    private HashMap<String, SorryPiece> pieces;
 
-    public PokemonPlayer(String team, String playerName, SorryPiece[] pieces) {
+    /**
+     * Default Constructor.
+     * 
+     * @param team team name
+     * @param playerName player name
+     * @param pieces all pieces
+     */
+    public PokemonPlayer(String team, String playerName,
+            HashMap<String, SorryPiece> pieces) {
         this.team = team;
         this.playerName = playerName;
         this.pieces = pieces;

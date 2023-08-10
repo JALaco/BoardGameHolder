@@ -19,7 +19,6 @@ public class SorryRunner {
     public static void main(String[] args) {
         PokemonSorry ps = new PokemonSorry();
         ArrayList<PokemonSorryCard> print = ps.cards;
-        PokemonSorryCard.printDeck(print);
-//        System.out.println("hi");
+        // PokemonSorryCard.printDeck(print);
     }
 }
