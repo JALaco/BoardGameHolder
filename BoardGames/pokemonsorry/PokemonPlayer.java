@@ -1,5 +1,6 @@
 package pokemonsorry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -11,9 +12,9 @@ import java.util.HashMap;
  */
 public class PokemonPlayer {
 
-    private String team;
-    private String playerName;
-    private HashMap<String, SorryPiece> pieces;
+    protected String team;
+    protected String playerName;
+    protected ArrayList<String> pieces;
 
     /**
      * Default Constructor.
@@ -23,9 +24,18 @@ public class PokemonPlayer {
      * @param pieces all pieces
      */
     public PokemonPlayer(String team, String playerName,
-            HashMap<String, SorryPiece> pieces) {
+            ArrayList<String> pieces) {
         this.team = team;
         this.playerName = playerName;
         this.pieces = pieces;
+    }
+
+    /**
+     * Adds the name to this player's pieces.
+     * 
+     * @param name name of pokemon
+     */
+    public void addPokemon(String name) {
+        pieces.add(name);
     }
 }

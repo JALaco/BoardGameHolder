@@ -3,9 +3,6 @@ package pokemonsorry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cards.Card;
-import cards.Deck;
-
 /**
  * Attempt at replicating the board game Pokemon 'Sorry'.
  * 
@@ -18,7 +15,7 @@ public class PokemonSorry {
     // protected SorryPiece[] bluePieces;
     // protected SorryPiece[] greenPieces;
     // protected SorryPiece[] yellowPieces;
-    HashMap<String, SorryPiece> pieces = new HashMap<>();
+    protected HashMap<String, SorryPiece> pieces = new HashMap<>();
 
     protected PokemonPlayer[] players = new PokemonPlayer[4];
     protected PokemonSorryCard currCard;
@@ -35,12 +32,12 @@ public class PokemonSorry {
             e.printStackTrace();
         }
 
-        addPieces();
+        players[0] = new PokemonPlayer("Fire", "Name1", new ArrayList<>());
+        players[1] = new PokemonPlayer("Water", "Name2", new ArrayList<>());
+        players[2] = new PokemonPlayer("Grass", "Name3", new ArrayList<>());
+        players[3] = new PokemonPlayer("Electric", "Name4", new ArrayList<>());
 
-        // players[0] = new PokemonPlayer("Fire", "Name1", redPieces);
-        // players[1] = new PokemonPlayer("Water", "Name2", bluePieces);
-        // players[2] = new PokemonPlayer("Grass", "Name3", greenPieces);
-        // players[3] = new PokemonPlayer("Electric", "Name4", yellowPieces);
+        addPieces();
 
         int i = 0;
         while (!gameOver) {
@@ -85,6 +82,7 @@ public class PokemonSorry {
      * Creates pieces and adds them to the corresponding array.
      */
     public void addPieces() {
+        // Adds them to the boards map of pieces
         pieces.put("Ponyta", new SorryPiece("Ponyta", "Fire", 0, true));
         pieces.put("Growlithe", new SorryPiece("Growlithe", "Fire", 0, true));
         pieces.put("Arcanine", new SorryPiece("Arcanine", "Fire", 0, true));
@@ -106,6 +104,27 @@ public class PokemonSorry {
         pieces.put("Pikachu", new SorryPiece("Pikachu", "Electric", 0, true));
         pieces.put("Electabuzz",
                 new SorryPiece("Electabuzz", "Electric", 0, true));
+
+        // Adds them to the individual player's pieces
+        players[0].addPokemon("Ponyta");
+        players[0].addPokemon("Growlithe");
+        players[0].addPokemon("Arcanine");
+        players[0].addPokemon("Rapidash");
+
+        players[1].addPokemon("Squirtle");
+        players[1].addPokemon("Psyduck");
+        players[1].addPokemon("Starmie");
+        players[1].addPokemon("Staryu");
+
+        players[2].addPokemon("Bulbasaur");
+        players[2].addPokemon("Tangela");
+        players[2].addPokemon("Vileplume");
+        players[2].addPokemon("Victreebel");
+
+        players[3].addPokemon("Voltorb");
+        players[3].addPokemon("Raichu");
+        players[3].addPokemon("Pikachu");
+        players[3].addPokemon("Electabuzz");
         // redPieces[0] = new SorryPiece("Ponyta", "Fire", 0, true);
         // redPieces[1] = new SorryPiece("Growlithe", "Fire", 0, true);
         // redPieces[2] = new SorryPiece("Arcanine", "Fire", 0, true);
