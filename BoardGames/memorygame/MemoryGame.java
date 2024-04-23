@@ -1,4 +1,4 @@
-package memorygame;
+    package memorygame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -190,7 +190,7 @@ public class MemoryGame extends JFrame
                 buttons.get(currentOrderNum).setContentAreaFilled(true);
                 buttons.get(currentOrderNum).setBackground(Color.CYAN);
 
-                Thread.sleep(800);
+                Thread.sleep(600);
 
                 buttons.get(currentOrderNum).setBackground(transparent);
                 buttons.get(currentOrderNum).setFocusPainted(false);

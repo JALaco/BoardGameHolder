@@ -23,10 +23,13 @@ public class SorryRunner {
      * @param args from the command line
      */
     public static void main(String[] args) {
-        createBoard();
+        // createBoard();
         PokemonSorry ps = new PokemonSorry();
     }
 
+    /**
+     * Creates the visual board for the PokemonSorry game.
+     */
     public static void createBoard() {
         StdDraw.setCanvasSize(screenWidth, screenHeight);
         StdDraw.setXscale(0, screenWidth);
