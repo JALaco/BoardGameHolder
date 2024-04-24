@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
  * Creates a game of hangman.
  * 
  * @author Justin Lacombe
- * @version 1/30/20223
+ * @version 1/30/2023
  */
 public class Hangman {
 

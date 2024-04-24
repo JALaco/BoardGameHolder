@@ -23,7 +23,7 @@ public class SorryRunner {
      * @param args from the command line
      */
     public static void main(String[] args) {
-        // createBoard();
+         createBoard();
         PokemonSorry ps = new PokemonSorry();
     }
 
